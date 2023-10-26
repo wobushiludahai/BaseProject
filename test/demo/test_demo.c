@@ -1,6 +1,7 @@
-#include <stdio.h>
+#include <gtest/gtest.h>
+#include "demo.h"
 
-int main(void)
-{
-	printf("Demo test\r\n");
+TEST(demo, test_demo) {
+  // Expect equality.
+  EXPECT_EQ( 7, add(3, 4));
 }

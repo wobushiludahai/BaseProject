@@ -5,7 +5,7 @@ import argparse
 
 def unitest():
     os.system('mkdir -p build')
-    os.system('cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE= ./x86Compile.cmake -DUNIT_TEST=1')
+    os.system('cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE= ./x86Compile.cmake -DUNIT_TEST=1 -DGCOV_ENABLED=1')
     os.system('cmake --build build')
     os.system('build/unitest/unit_tests')
     return 0
@@ -22,6 +22,7 @@ if __name__ == "__main__":
 
     # 2. 添加命令行参数
     parser.add_argument('-t', '--unitest', action="store_true", help='UniTest: 用gtest进行单元测试')
+    parser.add_argument('-g', '--gcov', action="store_true", help='Gcov: 是否增加覆盖率统计选项')
 
     parser.add_argument('-p', '--platform', type=str, choices = ['x86', 'arm'], help='Platform: 平台配置，交叉编译指定arm平台')
 

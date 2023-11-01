@@ -63,8 +63,6 @@ if __name__ == "__main__":
 
     # 4. 根据传入参数进行命令执行
     if execute_by_args(args) == 0:
-        print("Build Success!")
         exit(0)
     else:
-        print("Build Failed!")
         exit(1)

@@ -3,18 +3,50 @@
 import os
 import argparse
 
-def unitest():
-    os.system('mkdir -p build')
-    os.system('cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE= ./x86Compile.cmake -DUNIT_TEST=1 -DGCOV_ENABLED=1')
+platform = 'x86'
+is_unitest = False
+is_need_gcov = False
+
+current_file_path = os.path.abspath(__file__)
+current_folder_path = os.path.dirname(current_file_path)
+
+def unitest(is_need_gcov=False):
+    os.system('mkdir -p ' + current_folder_path + '/build')
+    cmd = 'cmake -S . -B build -DUNIT_TEST=1 '
+    if platform == 'x86':
+        cmd += '-DCMAKE_TOOLCHAIN_FILE= ./x86Compile.cmake '
+
+    if is_need_gcov == True:
+        cmd += '-DGCOV_ENABLED=1 '
+    os.system(cmd)
     os.system('cmake --build build')
     os.system('build/unitest/unit_tests')
+
+    os.system('mkdir -p ' + current_folder_path + '/output')
+
+    if is_need_gcov == True:
+        os.chdir('./build/src')
+        os.system('lcov -c -d . -o test.info --rc lcov_branch_coverage=1')
+        os.system('genhtml --branch-coverage -o gcov_result test.info')
+        os.system('mv gcov_result ' + current_folder_path + '/output')
     return 0
 
 def execute_by_args(args):
-    if args.unitest:
-        return unitest()
+    global is_unitest
+    global is_need_gcov
 
-    return -1
+    if args.unitest:
+        is_unitest = True
+
+    if args.gcov:
+        is_need_gcov = True
+
+    if is_unitest:
+        unitest(is_need_gcov)
+    else:
+        print('to do')
+
+    return 0
 
 if __name__ == "__main__":
     # 1. 定义命令行解析器对象

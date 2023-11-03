@@ -1,0 +1,26 @@
+【标题】
+
+【代码更改】
+【影响分析】
+【版本目标】
+
+#标题：描述MR的修改，以feature、fix、doc、other等开头以简短描述，以说明当前的MR合入，方便review人员理解当前的MR
+#sample：
+# feat:增加xxx功能
+# fix:修复xx问题
+# docs:更新、增加、删除 xx文档
+# other: 重构xx模块，优化xx实现
+# Revert：回退xxx
+# style: 格式（不影响代码运行的变动）
+# perf:优化相关，如提升性能、体验
+# Submod: 子仓增加xxx接口
+# test: 测试用例，包括单元测试、集成测试
+# chore: 改变构建流程、或者增加依赖库、工具等
+# refactor: 重构代码
+
+#代码更改：详细描述哪些代码被改动。sample: 主谓宾
+#影响分析：更改对于整个项目的影响，比如性能、安全性，当前模块，下游模块等。sample：1.流程变更，安全性影响；2.模块：OTA domain server
+#版本目标: 需要被打包到哪个大包版本里。sample: 版本号
+
+#全局配置模板： git config --global commit.template ./.gitmessage
+#当前仓库配置模板： git config commit.template ./.gitmessage
